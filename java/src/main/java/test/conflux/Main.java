@@ -145,7 +145,7 @@ public class Main {
 		System.out.println("tryWithComplexDynamicStruct: " + txHash);
 
 		// data =
-		// 0fe806f0
+		// d2332e23 - tryWithComplexDynamicStruct((address[],uint64[]))
 		// 0000000000000000000000000000000000000000000000000000000000000020
 		// 0000000000000000000000000000000000000000000000000000000000000040
 		// 00000000000000000000000000000000000000000000000000000000000000a0
@@ -156,9 +156,13 @@ public class Main {
 		// 0000000000000000000000000000000000000000000000000000000000000003
 		// 0000000000000000000000000000000000000000000000000000000000000004
 
-		// txHash = N/A
+		// txHash = 0x88157053e57751b63afd6d7edd67e38b702245d79e4879d5315f9429f12fa35e
 
-		// transaction is reverted.
+		// outcomeStatus: 0
+
+		// DynamicStruct.getTypeAsString() 计算出的 method signature 是这样的：
+		// 0fe806f0 - tryWithComplexDynamicStruct((dynamicarray,dynamicarray))
+		// 这是错误的，所以 tx 提交后无法正确执行！！！
 	}
 
 	void tryWithSimpleParams() throws Exception {
@@ -186,7 +190,7 @@ public class Main {
 		System.out.println("tryWithComplexParams: " + txHash);
 
 		// data =
-		// 7af08274
+		// 7af08274 - tryWithComplexParams(address[],uint64[])
 		// 0000000000000000000000000000000000000000000000000000000000000040
 		// 00000000000000000000000000000000000000000000000000000000000000a0
 		// 0000000000000000000000000000000000000000000000000000000000000002
@@ -256,8 +260,8 @@ public class Main {
 //			);
 			// 自动生成的代码带有语法错误，手工修改
 			super(
-				new org.web3j.abi.datatypes.DynamicArray<org.web3j.abi.datatypes.Address>(addrs.stream().map(org.web3j.abi.datatypes.Address::new).collect(Collectors.toList())),
-				new org.web3j.abi.datatypes.DynamicArray<org.web3j.abi.datatypes.generated.Uint64>(amounts.stream().map(Uint64::new).collect(Collectors.toList()))
+				new org.web3j.abi.datatypes.DynamicArray<org.web3j.abi.datatypes.Address>(org.web3j.abi.datatypes.Address.class, addrs.stream().map(org.web3j.abi.datatypes.Address::new).collect(Collectors.toList())),
+				new org.web3j.abi.datatypes.DynamicArray<org.web3j.abi.datatypes.generated.Uint64>(Uint64.class, amounts.stream().map(Uint64::new).collect(Collectors.toList()))
 			);
 
 			this.addrs = addrs;
@@ -274,6 +278,15 @@ public class Main {
 			// 自动生成的代码带有语法错误，手工修改
 			this.addrs = addrs.getValue().stream().map(org.web3j.abi.datatypes.Address::getValue).collect(Collectors.toList());
 			this.amounts = amounts.getValue().stream().map(Uint64::getValue).collect(Collectors.toList());
+		}
+
+		@Override
+		public String getTypeAsString() {
+			List<String> list = new ArrayList<String>();
+			for (Type val : value) {
+				list.add(val.getTypeAsString());
+			}
+			return "(" + String.join(",", list) + ")";
 		}
 	}
 }

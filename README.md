@@ -59,8 +59,8 @@ await sdk.getCode('CFXTEST:TYPE.CONTRACT:ACHYDC79W4V83VKTDM4G02M9JEBD6H98P20ADA6
 await sdk.getAccountPendingTransactions('cfxtest:aattfk4p2we919nsu0zu2xg8jxjsnf6zxy4j8wr8va')
 
 // 查看 tx 状态
-await sdk.getTransactionByHash('0x3737436a1ef68cdaeef486fab55e0b0e64409f937b5f8682500e08c87732b582')
-await sdk.getTransactionReceipt('0x3737436a1ef68cdaeef486fab55e0b0e64409f937b5f8682500e08c87732b582')
+await sdk.getTransactionByHash('0x88157053e57751b63afd6d7edd67e38b702245d79e4879d5315f9429f12fa35e')
+await sdk.getTransactionReceipt('0x88157053e57751b63afd6d7edd67e38b702245d79e4879d5315f9429f12fa35e')
 ```
 
 # 参考资料
