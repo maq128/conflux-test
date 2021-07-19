@@ -27,7 +27,7 @@ public class Main {
 	final static String CONFLUX_RPC_ENDPOINT = "http://test.confluxrpc.com";
 	final static String ACCOUNT_PRIVKEY = "b1c338c2900be2709b529d0bca60603d60f75436c847666beb6f472e03d38e50";
 	final static String ACCOUNT_ADDRESS = "cfxtest:aattfk4p2we919nsu0zu2xg8jxjsnf6zxy4j8wr8va";
-	final static String CONTRACT_ADDRESS = "CFXTEST:TYPE.CONTRACT:ACHYDC79W4V83VKTDM4G02M9JEBD6H98P20ADA6NVK";
+	final static String CONTRACT_ADDRESS = "CFXTEST:TYPE.CONTRACT:ACAXYBMT5772NE2XSMK7Z7CMAACCVE5AD67XW6312T";
 
 	public static void main(String[] args) throws Exception {
 		Main app = new Main();
@@ -62,9 +62,10 @@ public class Main {
 	void tryAll() throws Exception {
 //		tryWithStaticStruct();
 //		tryWithSimpleDynamicStruct();
-		tryWithComplexDynamicStruct();
+//		tryWithComplexDynamicStruct();
 //		tryWithSimpleParams();
 //		tryWithComplexParams();
+		tryWithReturns();
 	}
 
 	Account.Option prepareCall(String method, Type<?>... args) {
@@ -203,6 +204,14 @@ public class Main {
 		// txHash = 0x3737436a1ef68cdaeef486fab55e0b0e64409f937b5f8682500e08c87732b582
 
 		// outcomeStatus: 0
+	}
+
+	void tryWithReturns() throws Exception {
+		org.web3j.abi.datatypes.Address p1 = new org.web3j.abi.datatypes.Address(addrs.get(0));
+		org.web3j.abi.datatypes.generated.Uint64 p2 = new org.web3j.abi.datatypes.generated.Uint64(amounts.get(0));
+		Account.Option option = prepareCall("tryWithReturns", p1, p2);
+		String txHash = account.call(option, contractAddress, "tryWithReturns", p1, p2);
+		System.out.println("tryWithReturns: " + txHash);
 	}
 
 	// ---- 以下代码来自 web3j 生成的包装类 ----

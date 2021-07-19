@@ -73,4 +73,15 @@ contract Test {
         addr = addrs[0];
         amount = amounts[0];
     }
+
+    // --------------------------------
+
+    function tryWithReturns(
+        address paddr,
+        uint64 inc
+    ) external returns (address, uint64) {
+        addr = paddr;
+        amount += inc;
+        return (addr, amount);
+    }
 }
